@@ -1,0 +1,79 @@
+<Window x:Class="FastXT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FastXT - 快速TXT阅读器" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="文件(_F)">
+                <MenuItem Header="打开(_O)" Click="OpenFile_Click" InputGestureText="Ctrl+O"/>
+                <Separator/>
+                <MenuItem Header="退出(_X)" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="视图(_V)">
+                <MenuItem Header="字体大小(_+)" Click="IncreaseFontSize_Click" InputGestureText="Ctrl++"/>
+                <MenuItem Header="字体大小(_-)" Click="DecreaseFontSize_Click" InputGestureText="Ctrl+-"/>
+            </MenuItem>
+            <MenuItem Header="导航(_N)">
+                <MenuItem Header="上一章(_P)" Click="PreviousChapter_Click" InputGestureText="Ctrl+Left"/>
+                <MenuItem Header="下一章(_N)" Click="NextChapter_Click" InputGestureText="Ctrl+Right"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Chapter List -->
+            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="0,0,1,0" Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="章节目录" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <ListBox Grid.Row="1" x:Name="ChapterListBox" SelectionChanged="ChapterListBox_SelectionChanged"/>
+                </Grid>
+            </Border>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="Transparent"/>
+
+            <!-- Text Display Area -->
+            <Border Grid.Column="2" Padding="10">
+                <ScrollViewer x:Name="TextScrollViewer" VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="TextDisplay" 
+                               TextWrapping="Wrap" 
+                               FontSize="16" 
+                               LineHeight="28"
+                               FontFamily="Microsoft YaHei, SimSun, Arial"/>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="就绪"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="ChapterInfo" Text=""/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="FileInfo" Text=""/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
